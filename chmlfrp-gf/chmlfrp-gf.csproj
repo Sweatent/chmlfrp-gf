@@ -10,6 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="STTech.CodePlus" Version="1.7.2.1" />
     <PackageReference Include="System.Text.Encoding.CodePages" Version="4.0.1" />
   </ItemGroup>
 

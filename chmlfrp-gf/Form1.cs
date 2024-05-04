@@ -11,6 +11,13 @@ using System.Text.RegularExpressions;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.LinkLabel;
 using System.Reflection.PortableExecutable;
+using System.Net;
+using STTech.CodePlus.Threading;
+using System.Security.Policy;
+using chmlfrp;
+
+
+
 
 namespace chmlfrp_green_fast
 {
@@ -51,7 +58,7 @@ namespace chmlfrp_green_fast
         {
             Process.Start(new ProcessStartInfo
             {
-                FileName = "https://panel.chmlfrp.cn/register",
+                FileName = "https://panel.chmlfrp.cn/tunnelm/config",
                 UseShellExecute = true
             });
         }
@@ -93,35 +100,16 @@ namespace chmlfrp_green_fast
                     label4.Font = new System.Drawing.Font("Microsoft YaHei UI", 8);
                     label4.Text = "缺少程序主体，请查看左边教程再操作";
                     DialogResult result = MessageBox.Show("未检测到frp，是否补全frp？", "选择", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
-                    if(result == DialogResult.Yes)
+                    if (result == DialogResult.Yes)
                     {
-                        // 获取当前应用程序的目录
-                        string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
-                        // 拼接批处理文件的完整路径
-                        string batchFilePath = Path.Combine(currentDirectory, "download.bat");
-                        // 检查批处理文件是否存在
-                        if (File.Exists(batchFilePath))
+                        try
                         {
-                            try
-                            {
-                                ProcessStartInfo psi = new ProcessStartInfo();
-                                psi.WorkingDirectory = currentDirectory; // 设置工作目录为当前目录
-                                psi.FileName = batchFilePath; // 设置要启动的批处理文件路径
-                                psi.UseShellExecute = true; // 是否使用操作系统shell启动进程，默认为true，可根据需要设为false
+                            buquanjb();
 
-                                // 启动进程
-                                Process process = Process.Start(psi);
-                                Close();
-                            }
-                            catch (Exception ex)
-                            {
-                                MessageBox.Show($"启动补全脚本出错: {ex.Message}");
-                            }
                         }
-                        else
+                        catch (Exception ex)
                         {
-                            MessageBox.Show("未找到补全脚本");
+                            MessageBox.Show($"启动补全脚本出错: {ex.Message}");
                         }
 
                     }
@@ -136,36 +124,15 @@ namespace chmlfrp_green_fast
                 DialogResult result = MessageBox.Show("未检测到frp，是否补全frp？", "选择", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    // 获取当前应用程序的目录
-                    string currentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
-                    // 拼接批处理文件的完整路径
-                    string batchFilePath = Path.Combine(currentDirectory, "download.bat");
-
-                    // 检查批处理文件是否存在
-                    if (File.Exists(batchFilePath))
+                    try
                     {
-                        try
-                        {
-                            ProcessStartInfo psi = new ProcessStartInfo();
-                            psi.WorkingDirectory = currentDirectory; // 设置工作目录为当前目录
-                            psi.FileName = batchFilePath; // 设置要启动的批处理文件路径
-                            psi.UseShellExecute = true; // 是否使用操作系统shell启动进程，默认为true，可根据需要设为false
+                        buquanjb();
 
-                            // 启动进程
-                            Process process = Process.Start(psi);
-                            Close();
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"启动补全脚本出错: {ex.Message}");
-                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        MessageBox.Show("未找到补全脚本");
+                        MessageBox.Show($"启动补全脚本出错: {ex.Message}");
                     }
-
                 }
                 buquan.Visible = true;
             }
@@ -186,13 +153,13 @@ namespace chmlfrp_green_fast
                     }
                     catch (InvalidOperationException)
                     {
-                        MessageBox.Show($"Failed to terminate process with ID: {process.Id}, it might have already exited.");
+                        MessageBox.Show($"此 ID: {process.Id}貌似关闭失败去，请联系管理员");
                     }
                 }
                 return;
             }
             return;
-            
+
         }
         private void button2_Click(object sender, EventArgs e)
         {
@@ -291,12 +258,20 @@ namespace chmlfrp_green_fast
                     }
                 }
 
-                
+
                 button2.Text = "启动映射";
 
             }
         }
+        
+        
+        private void buquanjb()
+        {
+            Form form3 = new Form3();
 
+            // 显示第二个窗体
+            form3.Show();
+        }
 
         // 处理输出中的敏感信息或格式
         private string ProcessOutput(string input)
@@ -311,6 +286,21 @@ namespace chmlfrp_green_fast
                 e.Cancel = true; // 取消关闭操作
                 MessageBox.Show("请先关闭映射", "系统提示");
             }
+        }
+
+        private void buquan_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                buquanjb();
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"启动补全脚本出错: {ex.Message}");
+            }
+        
         }
     }
 }

@@ -144,6 +144,7 @@
             buquan.TabIndex = 9;
             buquan.Text = "点击补全文件";
             buquan.UseVisualStyleBackColor = true;
+            buquan.Click += buquan_Click;
             // 
             // main
             // 
